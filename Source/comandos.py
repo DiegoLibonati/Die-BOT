@@ -1,5 +1,7 @@
 import asyncio
 from turtle import color
+from unicodedata import name
+from discord import VoiceChannel
 import nextcord
 from nextcord.ext import commands
 import time
@@ -75,8 +77,11 @@ async def pelicula(ctx, peli, horario, productor, actores):
 
 ### Comando Latencia ###
 
-@bot.command()
+@bot.command(aliases=["Latencia"])
 async def latencia(ctx, *args):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+
     inicio=time.time()
     mensaje= await ctx.send("Obteniendo Ping")
     await mensaje.edit(content="Obteniendo Ping.")
@@ -92,4 +97,39 @@ async def latencia(ctx, *args):
 
     await ctx.send(embed=embed)
     #await ctx.send(f"Mi PING de WebSocket es de: {round(bot.latency*1000)} MS\nMi PING de API es de: {round((fin-inicio)*1000)} MS")
-  
+
+### Comando para mover ###
+@bot.command()
+async def mover(ctx, member:nextcord.Member, canal:VoiceChannel,*, reason=None):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.move_to(canal, reason=reason)
+    embed=nextcord.Embed(title="COMANDO MOVER", description="Este comando permite mover personas a otros canales, se necesita permisos", color=16705372)
+    embed.add_field(name=f"El usuario: {ctx.author.display_name}", value=f"Movio a **{member}**", inline=False)
+    embed.add_field(name=f"Al canal {canal}", value=f"Razon: **{reason}**", inline=False)
+    await ctx.send(embed=embed)
+    # await ctx.send(f"El usuario **{member.display_name}** movio a **{member}** al canal **{canal}** cuya razon es: **{reason}**")
+
+### Comando para agregar roles ###
+
+@bot.command()
+
+async def rol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, atomic=True):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.add_roles(roles, reason=reason)
+    embed=nextcord.Embed(title="Comando AGREGAR ROL", description=f"Este comando sirve para dar ROLES, se necesitan permisos\n\n El usuario **{ctx.author.display_name}**, dio el rol: **{roles}** a **{member}**.\nRazon: **{reason}**", color=16705372)
+    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+
+### Comando para sacar roles ###
+
+@bot.command()
+
+async def sacarrol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, atomic=True):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.remove_roles(roles, reason=reason)
+    embed=nextcord.Embed(title="Comando SACAR ROL", description=f"Este comando sirve para sacar ROLES, se necesitan permisos\n\n El usuario **{ctx.author.display_name}**, le saco el rol: **{roles}** a **{member}**.\nRazon: **{reason}**", color=16705372)
+    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    await ctx.send(embed=embed)
