@@ -1,28 +1,27 @@
 import asyncio
 from turtle import color
 from unicodedata import name
-from discord import VoiceChannel
+from discord import Permissions, VoiceChannel
 import nextcord
 from nextcord.ext import commands
 import time
+from nextcord.ext.commands import has_guild_permissions
 
 ########## PREFIJO Y DESCRIPCION
 bot=commands.Bot(command_prefix='!d ', description="Bot creado por Diego Libonati")
 
-
-############ Comando PING
+### COMANDOS MISC ###
+### Comando Ping ###
 @bot.command() # Decorador que permite crear un comando pero con una funcion
-
 async def ping(ctx):
     async with ctx.typing():
         await asyncio.sleep(0.5)
 
     await ctx.send('Estoy funcionado!')
 
-############### Comando Informacion
-@bot.command(aliases=['info'])
-
-async def informacion(ctx):
+### Comando InformacionServer ###
+@bot.command(aliases=['info', "informacion", "Info", "Informacion", "Information"])
+async def information(ctx):
     async with ctx.typing():
         await asyncio.sleep(0.5)
         member=ctx.author
@@ -35,12 +34,32 @@ async def informacion(ctx):
     embed.set_footer(text="Informacion requerida por: {}".format(member.display_name))
     await ctx.send(embed=embed)
 
+### Comando Latencia ###
+@bot.command(aliases=["Latencia", "latencia", "Latency"])
+async def latency(ctx, *args):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
 
+    inicio=time.time()
+    mensaje= await ctx.send("Obteniendo Ping")
+    await mensaje.edit(content="Obteniendo Ping.")
+    await mensaje.edit(content="Obteniendo Ping..")
+    await mensaje.edit(content="Obteniendo Ping...")
+    await mensaje.edit(content="¡PING OBTENIDO CON EXITO!")
+    fin=time.time()
+
+    embed=nextcord.Embed(title="Comando LATENCIA", description="Este COMANDO obtiene la latencia actual del WebSocket y API de Die BOT", color=16705372)
+    embed.add_field(name="LATENCIA WEBSOCKET", value=f"{round(bot.latency*1000)} MS", inline=True)
+    embed.add_field(name="LATENCIA API", value=f"{round((fin-inicio)*100)} MS", inline=True)
+    embed.set_footer(text=f"Informacion requerida por {ctx.author.display_name}")
+
+    await ctx.send(embed=embed)
+#await ctx.send(f"Mi PING de WebSocket es de: {round(bot.latency*1000)} MS\nMi PING de API es de: {round((fin-inicio)*1000)} MS")
+
+### COMANDOS FUN ###
 ### Comando 8Ball ###
 import random 
-
 @bot.command(aliases=["8ball", "8b"])
-
 async def eightball(ctx, *, pregunta):
     async with ctx.typing():
         await asyncio.sleep(0.5)
@@ -59,10 +78,9 @@ async def eightball(ctx, *, pregunta):
     embed.add_field(name="Pregunta y Respuesta", value=f':8ball: La pregunta fue: {pregunta}\n:8ball: La respuesta es: {random.choice(respuestas)}', inline=False)
     await ctx.send(embed=embed)
 
-
 ### Comando Peliculas ###
-@bot.command()
-async def pelicula(ctx, peli, horario, productor, actores):
+@bot.command(aliases=["pelicula", "Pelicula", "Movie"])
+async def movie(ctx, peli, horario, productor, actores):
     async with ctx.typing():
         await asyncio.sleep(0.5)
 
@@ -75,45 +93,23 @@ async def pelicula(ctx, peli, horario, productor, actores):
     await ctx.send(embed=embed)
 
 
-### Comando Latencia ###
-
-@bot.command(aliases=["Latencia"])
-async def latencia(ctx, *args):
-    async with ctx.typing():
-        await asyncio.sleep(0.5)
-
-    inicio=time.time()
-    mensaje= await ctx.send("Obteniendo Ping")
-    await mensaje.edit(content="Obteniendo Ping.")
-    await mensaje.edit(content="Obteniendo Ping..")
-    await mensaje.edit(content="Obteniendo Ping...")
-    await mensaje.edit(content="¡PING OBTENIDO CON EXITO!")
-    fin=time.time()
-
-    embed=nextcord.Embed(title="Comando LATENCIA", description="Este COMANDO obtiene la latencia actual del WebSocket y API de Die BOT", color=16705372)
-    embed.add_field(name="LATENCIA WEBSOCKET", value=f"{round(bot.latency*1000)} MS", inline=True)
-    embed.add_field(name="LATENCIA API", value=f"{round((fin-inicio)*100)} MS", inline=True)
-    embed.set_footer(text=f"Informacion requerida por {ctx.author.display_name}")
-
-    await ctx.send(embed=embed)
-    #await ctx.send(f"Mi PING de WebSocket es de: {round(bot.latency*1000)} MS\nMi PING de API es de: {round((fin-inicio)*1000)} MS")
-
+### COMANDOS MOD ###
 ### Comando para mover ###
-@bot.command()
-async def mover(ctx, member:nextcord.Member, canal:VoiceChannel,*, reason=None):
+@bot.command(aliases=["Mover", "mover", "Move"])
+@has_guild_permissions(move_members=True)
+async def move(ctx, member:nextcord.Member, canal:VoiceChannel,*, reason=None):
     async with ctx.typing():
         await asyncio.sleep(0.5)
-    await member.move_to(canal, reason=reason)
-    embed=nextcord.Embed(title="COMANDO MOVER", description="Este comando permite mover personas a otros canales, se necesita permisos", color=16705372)
-    embed.add_field(name=f"El usuario: {ctx.author.display_name}", value=f"Movio a **{member}**", inline=False)
-    embed.add_field(name=f"Al canal {canal}", value=f"Razon: **{reason}**", inline=False)
-    await ctx.send(embed=embed)
-    # await ctx.send(f"El usuario **{member.display_name}** movio a **{member}** al canal **{canal}** cuya razon es: **{reason}**")
+        await member.move_to(canal, reason=reason)
+        embed=nextcord.Embed(title="COMANDO MOVER", description="Este comando permite mover personas a otros canales, se necesita permisos", color=16705372)
+        embed.add_field(name=f"El usuario: {ctx.author.display_name}", value=f"Movio a **{member}**", inline=False)
+        embed.add_field(name=f"Al canal {canal}", value=f"Razon: **{reason}**", inline=False)
+        await ctx.send(embed=embed)
+# await ctx.send(f"El usuario **{member.display_name}** movio a **{member}** al canal **{canal}** cuya razon es: **{reason}**")
 
 ### Comando para agregar roles ###
-
-@bot.command()
-
+@bot.command(aliases=["Rol"])
+@has_guild_permissions(manage_roles=True)
 async def rol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, atomic=True):
     async with ctx.typing():
         await asyncio.sleep(0.5)
@@ -123,13 +119,84 @@ async def rol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, ato
     await ctx.send(embed=embed)
 
 ### Comando para sacar roles ###
-
-@bot.command()
-
-async def sacarrol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, atomic=True):
+@bot.command(aliases=["Drol", "DROL"])
+@has_guild_permissions(manage_roles=True)
+async def drol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, atomic=True):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.remove_roles(roles, reason=reason)
     embed=nextcord.Embed(title="Comando SACAR ROL", description=f"Este comando sirve para sacar ROLES, se necesitan permisos\n\n El usuario **{ctx.author.display_name}**, le saco el rol: **{roles}** a **{member}**.\nRazon: **{reason}**", color=16705372)
     embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
     await ctx.send(embed=embed)
+
+### Comando para Mutear ###
+@bot.command(aliases=["Silence", "SILENCE"])
+@has_guild_permissions(mute_members=True)
+async def silence(ctx, member:nextcord.Member, mute=False):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.edit(mute=True)
+    embed=nextcord.Embed(title="Comando SILENCE", description=f"El usuario **{member}** fue silenciado por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutador por {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+    # await ctx.send(f"El usuario {member} fue silenciado por {ctx.author.display_name}")
+
+### Comando para Desmutear ###
+@bot.command(aliases=["Desilence", "DESILENCE"])
+@has_guild_permissions(mute_members=True)
+async def desilence(ctx, member:nextcord.Member, mute=True):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.edit(mute=False)
+    embed=nextcord.Embed(title="Comando DESILENCE", description=f"El usuario **{member}** fue dessilenciado por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutador por {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+    #await ctx.send(f"El usuario {member} fue dessilenciado por {ctx.author.display_name}")
+
+### Comando para ensordecer ###
+@bot.command(aliases=["Deafen", "DEAFEN"])
+@has_guild_permissions(deafen_members=True)
+async def deafen(ctx, member:nextcord.Member, deafen=False):
+    await member.edit(deafen=True)
+    embed=nextcord.Embed(title="Command DEAFEN", description=f"El usuario **{member}** fue ensordecido por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+
+### Comando para desendordeser ###
+@bot.command(aliases=["DEDEAFEN", "Dedeafen"])
+@has_guild_permissions(deafen_members=True)
+async def dedeafen(ctx, member:nextcord.Member, deafen=True):
+    await member.edit(deafen=False)
+    embed=nextcord.Embed(title="Command DEDEAFEN", description=f"El usuario **{member}** ahora escucha gracias a: **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+
+### Comando para ensordecer y silenciar ###
+@bot.command(aliases=["SDALL", "Sdall"])
+@has_guild_permissions(mute_members=True)
+@has_guild_permissions(deafen_members=True)
+async def sdall(ctx, member:nextcord.Member, mute=False, deafen=False):
+     await member.edit(mute=True, deafen=True)
+     embed=nextcord.Embed(title="Command SDALL", description=f"El usuario **{member}** fue silenciado y ensordecido por **{ctx.author.display_name}**")
+     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+     await ctx.send(embed=embed)
+
+### Comando para que escuchen y hablen ###
+@bot.command(aliases=["SDUNALL", "Sdunall"])
+@has_guild_permissions(mute_members=True)
+@has_guild_permissions(deafen_members=True)
+async def sdunall(ctx, member:nextcord.Member, mute=True, deafen=True):
+     await member.edit(mute=False, deafen=False)
+     embed=nextcord.Embed(title="Command SDUNALL", description=f"El usuario **{member}** fue dessilenciado y tambien ahora escucha gracias a **{ctx.author.display_name}**")
+     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+     await ctx.send(embed=embed)
+
+### Comando para desconectar ###
+@bot.command(aliases=["Disconnect", "DISCONNECT"])
+@has_guild_permissions(move_members=True)
+async def disconnect(ctx, member:nextcord.Member, voice_channel=None):
+    await member.edit(voice_channel=None)
+    embed=nextcord.Embed(title="Command DISCONNECT", description=f"El usuario {member}, fue desconectado por: {ctx.author.display_name}")
+    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+    
