@@ -7,9 +7,8 @@ from nextcord.ext import commands
 import time
 from nextcord.ext.commands import has_guild_permissions
 import random 
-from colorama import Fore, init
 
-init()
+
 
 ########## PREFIJO Y DESCRIPCION
 bot=commands.Bot(command_prefix='!d ', description="Bot creado por Diego Libonati")
@@ -99,7 +98,7 @@ async def game1(ctx, usuario):
         IA=random.choice(lista)
 
         resultado=nextcord.Embed(title="ROCK, PAPER OR SCISSORS GAME", description="Comando que sirve para jugar a piedra, papel o tijera contra la computadora")
-        resultado.add_field(name="ELECCIONES", value=Fore.GREEN + f"Vos elegiste: **{usuario}**\nLa computadora eligio: **{IA}**", inline=False)
+        resultado.add_field(name="ELECCIONES", value=f"Vos elegiste: **{usuario}**\nLa computadora eligio: **{IA}**", inline=False)
 
         #await ctx.send(f"Vos elegiste: {usuario}\nLa computadora eligio: {IA}")
 
