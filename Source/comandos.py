@@ -6,7 +6,10 @@ import nextcord
 from nextcord.ext import commands
 import time
 from nextcord.ext.commands import has_guild_permissions
+import random 
+from colorama import Fore, init
 
+init()
 
 ########## PREFIJO Y DESCRIPCION
 bot=commands.Bot(command_prefix='!d ', description="Bot creado por Diego Libonati")
@@ -59,7 +62,7 @@ async def latency(ctx, *args):
 
 ### COMANDOS FUN ###
 ### Comando 8Ball ###
-import random 
+
 @bot.command(aliases=["8ball", "8b"])
 async def eightball(ctx, *, pregunta):
     async with ctx.typing():
@@ -78,6 +81,64 @@ async def eightball(ctx, *, pregunta):
 
     embed.add_field(name="Pregunta y Respuesta", value=f':8ball: La pregunta fue: {pregunta}\n:8ball: La respuesta es: {random.choice(respuestas)}', inline=False)
     await ctx.send(embed=embed)
+
+### Comando Piedra Papel o Tijera ###
+@bot.command(aliases=[])
+async def game1(ctx, usuario):
+
+    lista=["piedra", "papel", "tijera"]
+
+    if usuario not in lista:
+        embed=nextcord.Embed(title="ROCK, PAPER OR SCISSORS GAME", description="Comando que sirve para jugar a piedra, papel o tijera contra la computadora")
+        embed.add_field(name="ERROR :cry:", value="La palabra o caracteres que introdujo son incorrectos.\nSolo se permite: piedra, papel o tijera.\nIngrese el comando con su correcta expresion nuevamente.")
+        await ctx.send(embed=embed)
+        #await ctx.send("La palabra o caracteres que introdujo son incorrectos")
+        #await ctx.send("Solo se permite: piedra, papel o tijera")
+        #await ctx.send("Ingrese el comando con su correcta expresion nuevamente")
+    else:
+        IA=random.choice(lista)
+
+        resultado=nextcord.Embed(title="ROCK, PAPER OR SCISSORS GAME", description="Comando que sirve para jugar a piedra, papel o tijera contra la computadora")
+        resultado.add_field(name="ELECCIONES", value=Fore.GREEN + f"Vos elegiste: **{usuario}**\nLa computadora eligio: **{IA}**", inline=False)
+
+        #await ctx.send(f"Vos elegiste: {usuario}\nLa computadora eligio: {IA}")
+
+        ### PAPEL
+        if IA=="papel" and usuario=="piedra":
+            #await ctx.send("La computadora gana")
+            resultado.add_field(name="RESULTADO FINAL", value="**La computadora GANA**", inline=False)
+        elif IA=="papel" and usuario=="tijera":
+            #await ctx.send("GANASTE")
+            resultado.add_field(name="RESULTADO FINAL", value="**GANASTE**",inline=False)
+        elif IA=="papel" and usuario=="papel":
+            #await ctx.send("Es un EMPATE")
+            resultado.add_field(name="RESULTADO FINAL", value="**Es un EMPATE**",inline=False)
+
+        ### TIJERA
+        if IA=="tijera" and usuario=="piedra":
+            #await ctx.send("GANASTE")
+            resultado.add_field(name="RESULTADO FINAL", value="**GANASTE**",inline=False)
+        elif IA=="tijera" and usuario=="tijera":
+            #await ctx.send("Es un EMPATE")
+            resultado.add_field(name="RESULTADO FINAL", value="**Es un EMPATE**",inline=False)
+        elif IA=="tijera" and usuario=="papel":
+            #await ctx.send("La computadora gana")
+            resultado.add_field(name="RESULTADO FINAL", value="**La computadora GANA**",inline=False)
+
+        ### PIEDRA
+        if IA=="piedra" and usuario=="piedra":
+            #await ctx.send("Es un EMPATE")
+            resultado.add_field(name="RESULTADO FINAL", value="**Es un EMPATE**",inline=False)
+        elif IA=="piedra" and usuario=="tijera":
+            #await ctx.send("La computadora gana")
+            resultado.add_field(name="RESULTADO FINAL", value="**La computadora GANA**",inline=False)
+        elif IA=="piedra" and usuario=="papel":
+            #await ctx.send("GANASTE")
+            resultado.add_field(name="RESULTADO FINAL", value="**GANASTE**",inline=False)
+
+        
+        await ctx.send(embed=resultado)
+
 
 ### Comando Peliculas ###
 @bot.command(aliases=["pelicula", "Pelicula", "Movie"])
