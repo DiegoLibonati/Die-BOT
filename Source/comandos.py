@@ -7,6 +7,7 @@ from nextcord.ext import commands
 import time
 from nextcord.ext.commands import has_guild_permissions
 
+
 ########## PREFIJO Y DESCRIPCION
 bot=commands.Bot(command_prefix='!d ', description="Bot creado por Diego Libonati")
 
@@ -157,6 +158,8 @@ async def desilence(ctx, member:nextcord.Member, mute=True):
 @bot.command(aliases=["Deafen", "DEAFEN"])
 @has_guild_permissions(deafen_members=True)
 async def deafen(ctx, member:nextcord.Member, deafen=False):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
     await member.edit(deafen=True)
     embed=nextcord.Embed(title="Command DEAFEN", description=f"El usuario **{member}** fue ensordecido por **{ctx.author.display_name}**")
     embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
@@ -166,6 +169,8 @@ async def deafen(ctx, member:nextcord.Member, deafen=False):
 @bot.command(aliases=["DEDEAFEN", "Dedeafen"])
 @has_guild_permissions(deafen_members=True)
 async def dedeafen(ctx, member:nextcord.Member, deafen=True):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
     await member.edit(deafen=False)
     embed=nextcord.Embed(title="Command DEDEAFEN", description=f"El usuario **{member}** ahora escucha gracias a: **{ctx.author.display_name}**")
     embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
@@ -176,27 +181,79 @@ async def dedeafen(ctx, member:nextcord.Member, deafen=True):
 @has_guild_permissions(mute_members=True)
 @has_guild_permissions(deafen_members=True)
 async def sdall(ctx, member:nextcord.Member, mute=False, deafen=False):
-     await member.edit(mute=True, deafen=True)
-     embed=nextcord.Embed(title="Command SDALL", description=f"El usuario **{member}** fue silenciado y ensordecido por **{ctx.author.display_name}**")
-     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
-     await ctx.send(embed=embed)
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.edit(mute=True, deafen=True)
+    embed=nextcord.Embed(title="Command SDALL", description=f"El usuario **{member}** fue silenciado y ensordecido por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    await ctx.send(embed=embed)
 
 ### Comando para que escuchen y hablen ###
 @bot.command(aliases=["SDUNALL", "Sdunall"])
 @has_guild_permissions(mute_members=True)
 @has_guild_permissions(deafen_members=True)
 async def sdunall(ctx, member:nextcord.Member, mute=True, deafen=True):
-     await member.edit(mute=False, deafen=False)
-     embed=nextcord.Embed(title="Command SDUNALL", description=f"El usuario **{member}** fue dessilenciado y tambien ahora escucha gracias a **{ctx.author.display_name}**")
-     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
-     await ctx.send(embed=embed)
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.edit(mute=False, deafen=False)
+    embed=nextcord.Embed(title="Command SDUNALL", description=f"El usuario **{member}** fue dessilenciado y tambien ahora escucha gracias a **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    await ctx.send(embed=embed)
 
 ### Comando para desconectar ###
 @bot.command(aliases=["Disconnect", "DISCONNECT"])
 @has_guild_permissions(move_members=True)
 async def disconnect(ctx, member:nextcord.Member, voice_channel=None):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
     await member.edit(voice_channel=None)
     embed=nextcord.Embed(title="Command DISCONNECT", description=f"El usuario {member}, fue desconectado por: {ctx.author.display_name}")
     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
     await ctx.send(embed=embed)
     
+### Comando para banear ###
+
+@bot.command(aliases=["BAN", "Ban"])
+@has_guild_permissions(ban_members=True)
+async def ban(ctx, member:nextcord.Member, delete_message_days=None, reason=None):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.ban(delete_message_days=delete_message_days, reason=reason)
+    embed=nextcord.Embed(title="BAN Command", description=f"El usuario **{member}** fue baneado por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por **{ctx.author.display_name}**")
+    await ctx.send(embed=embed)
+
+### Comando para desbanear ###
+
+@bot.command(aliases=["UNBAN", "Unban"])
+@has_guild_permissions(ban_members=True)
+async def unban(ctx, member:nextcord.Member, reason=None):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.ban(reason=reason)
+    embed=nextcord.Embed(title="UNBAN Command", description=f"El usuario **{member}** fue desbaneado por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por **{ctx.author.display_name}**")
+    await ctx.send(embed=embed)
+
+### Comando para kickear ###
+@bot.command(aliases=["Kick", "KICK"])
+@has_guild_permissions(kick_members=True)
+async def kick(ctx, member:nextcord.Member, reason=None):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.kick(reason=reason)
+    embed=nextcord.Embed(title="KICK Command", description=f"El usuario **{member}**, fue kickeado por **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejectuado por {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+
+### Comando para tener Prioridad de habla ### 
+@bot.command(aliases=["PTOSPEAK","Ptospeak"])
+@has_guild_permissions(priority_speaker=True)
+async def ptospeak(ctx, member:nextcord.Member):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await member.request_to_speak()
+    embed=nextcord.Embed(title="REQUEST TO SPEAK Command", description=f"El usuario **{member}** ahora tiene PRIORIDAD PARA HABLAR gracias a **{ctx.author.display_name}**")
+    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    ctx.send(embed=embed)
+

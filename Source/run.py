@@ -63,5 +63,17 @@ async def sdunall():
 
 async def disconnect():
     await comandos.disconnect() 
+
+async def ban():
+    await comandos.ban() 
+
+async def unban():
+    await comandos.unban() 
+
+async def kick():
+    await comandos.kick() 
+
+async def ptospeak():
+    await comandos.ptospeak() 
 ################# RUN
 comandos.bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.ANRwzPy6nHjeK7z1OBYokAb8rBI')
