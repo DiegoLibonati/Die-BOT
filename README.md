@@ -19,6 +19,7 @@ Prefix: !d
 <p>!d ping</p>
 <p>!d information</p>
 <p>!d latency</p>
+<p>!d help</p>
 
 <h1><p>Fun Commands</p></h1>
 <p>!d eightball</p>
