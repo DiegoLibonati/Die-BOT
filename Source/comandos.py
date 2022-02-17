@@ -5,13 +5,56 @@ from discord import Permissions, VoiceChannel
 import nextcord
 from nextcord.ext import commands
 import time
-from nextcord.ext.commands import has_guild_permissions
+from nextcord.ext.commands import has_guild_permissions, MissingPermissions
 import random 
+import CHelp
+from CHelp import Misc_Commands
 
 
 
 ########## PREFIJO Y DESCRIPCION
 bot=commands.Bot(command_prefix='!d ', description="Bot creado por Diego Libonati")
+
+### Eventos ###
+
+# Cuando pasa algo. Cuando se conecta el Bot, ya que no lo se.
+
+@bot.event
+async def on_ready():
+    await bot.change_presence(activity=nextcord.Game(name='Instagram: @die_libonati'))
+    print('EL BOT ARRANCO.')
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, MissingPermissions):
+        embed=nextcord.Embed(title="ERROR :cry:", description="Lo lamento, usted no tiene permisos en este Servidor para ejecutar ese **COMANDO**")
+        await ctx.send(embed=embed)
+        #await ctx.send("Usted no tiene Permiso para ejecutar este comando")
+    else:
+        raise error
+
+
+@bot.event
+async def on_message(message):
+    msg= message.content
+
+    if msg.startswith("!d help"):
+        #await message.author.send(*CHelp.Comandos)
+
+        embed=nextcord.Embed(title="HELP COMMAND", description="Hi, I´m Die-BOT. The help arrived")
+        embed.add_field(name="MISC COMMANDS", value=", ".join(CHelp.Misc_Commands), inline=False)
+        embed.add_field(name="FUN COMMANDS", value=", ".join(CHelp.Fun_Commands), inline=False)
+        embed.add_field(name="MOD COMMANDS - [SE NECESITAN PERMISOS]", value=", ".join(CHelp.Mod_Commands), inline=False)
+        await message.author.send(embed=embed)
+        
+        embed2=nextcord.Embed(title="HELP COMMAND", description=f"Hola **{message.author.display_name}**, te envie un mensaje privado!")
+        await message.channel.send(embed=embed2)
+        
+
+
+
+
+
 
 ### COMANDOS MISC ###
 ### Comando Ping ###
@@ -58,6 +101,7 @@ async def latency(ctx, *args):
 
     await ctx.send(embed=embed)
 #await ctx.send(f"Mi PING de WebSocket es de: {round(bot.latency*1000)} MS\nMi PING de API es de: {round((fin-inicio)*1000)} MS")
+
 
 ### COMANDOS FUN ###
 ### Comando 8Ball ###
@@ -317,3 +361,5 @@ async def ptospeak(ctx, member:nextcord.Member):
     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
     ctx.send(embed=embed)
 
+### RUN ###
+bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.XrAO5_4EUMOh3eKf9VfyXifxMtI')
