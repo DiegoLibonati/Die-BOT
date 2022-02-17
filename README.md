@@ -1,9 +1,3 @@
-# Die-BOT [Discord]-[Python]
-
-This is my PYTHON-BOT for Discord
-
-Prefix: !d
-
 <h1 align="center"> Hey 👋🏽, I'm Libonati Diego </h1>
 
 <h3 align="center">
@@ -13,6 +7,12 @@ Prefix: !d
 <h3 align="center">
 <img align="center" alt="cat coding" src="https://github.com/DiegoLibonati/DiegoLibonati/blob/main/template/cat.gif" width="200" />
  </h3>
+
+# Die-BOT [Discord]-[Python]
+
+This is my PYTHON-BOT for Discord
+
+Prefix: !d
 
 <h1 align="left"> Commands [PYTHON] </h1>
 <h1><p>Misc Commands</p></h1>
