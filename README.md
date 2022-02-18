@@ -41,6 +41,7 @@ Prefix: !d
 <p>!d unban</p>
 <p>!d kick</p>
 <p>!d ptospeak</p>
+<p>!d clear</p>
 
 <br>
 <h2 align="left">

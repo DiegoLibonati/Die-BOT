@@ -22,4 +22,5 @@ Mod_Commands=["!d move - Comando para mover usuarios de un canal a otro canal\n\
 !d ban - Comando para banear a un usuario\n\
 !d unban - Comando para desbanear a un usuario\n\
 !d kick - Comando para kickear a un usuario\n\
-!d ptospeak - Comando para activar la prioridad de habla"]
+!d ptospeak - Comando para activar la prioridad de habla\n\
+!d clear - Comando para limpiar el chat de un canal de texto"]
