@@ -375,4 +375,4 @@ async def clear(ctx, canal:nextcord.TextChannel, limit=None):
 
 
 ### RUN ###
-bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.YyWzyzCBm-1XaCVkLTBypK7VtxE')
+bot.run('')
