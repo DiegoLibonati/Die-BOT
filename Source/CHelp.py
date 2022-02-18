@@ -24,3 +24,7 @@ Mod_Commands=["!d move - Comando para mover usuarios de un canal a otro canal\n\
 !d kick - Comando para kickear a un usuario\n\
 !d ptospeak - Comando para activar la prioridad de habla\n\
 !d clear - Comando para limpiar el chat de un canal de texto"]
+
+Contact=["Instagram: https://www.instagram.com/die_libonati/?hl=es-la\n\
+GitHub:https://github.com/DiegoLibonati\n\
+Gmail: diego.libonati1998@gmail.com"]

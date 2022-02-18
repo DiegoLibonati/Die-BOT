@@ -46,6 +46,10 @@ async def on_message(message):
         embed.add_field(name="FUN COMMANDS", value=", ".join(CHelp.Fun_Commands), inline=False)
         embed.add_field(name="MOD COMMANDS - [SE NECESITAN PERMISOS]", value=", ".join(CHelp.Mod_Commands), inline=False)
         await message.author.send(embed=embed)
+
+        embed3=nextcord.Embed(title="Contact", description="IMPORTANT INFORMATION")
+        embed3.add_field(name=". :flag_ar:", value=", ".join(CHelp.Contact), inline=False)
+        await message.author.send(embed=embed3)
         
         embed2=nextcord.Embed(title="HELP COMMAND", description=f"Hola **{message.author.display_name}**, te envie un mensaje privado!")
         await message.channel.send(embed=embed2)
