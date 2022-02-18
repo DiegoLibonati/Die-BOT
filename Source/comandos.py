@@ -8,7 +8,6 @@ import time
 from nextcord.ext.commands import has_guild_permissions, MissingPermissions
 import random 
 import CHelp
-from CHelp import Misc_Commands
 
 
 
@@ -36,9 +35,10 @@ async def on_command_error(ctx, error):
 
 @bot.event
 async def on_message(message):
+
     msg= message.content
 
-    if msg.startswith("!d help"):
+    if msg=="!d help":
         #await message.author.send(*CHelp.Comandos)
 
         embed=nextcord.Embed(title="HELP COMMAND", description="Hi, I´m Die-BOT. The help arrived")
@@ -49,11 +49,10 @@ async def on_message(message):
         
         embed2=nextcord.Embed(title="HELP COMMAND", description=f"Hola **{message.author.display_name}**, te envie un mensaje privado!")
         await message.channel.send(embed=embed2)
-        
+    
+    else:
 
-
-
-
+        await bot.process_commands(message)
 
 
 ### COMANDOS MISC ###
@@ -128,6 +127,8 @@ async def eightball(ctx, *, pregunta):
 ### Comando Piedra Papel o Tijera ###
 @bot.command(aliases=[])
 async def game1(ctx, usuario):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
 
     lista=["piedra", "papel", "tijera"]
 
@@ -361,5 +362,17 @@ async def ptospeak(ctx, member:nextcord.Member):
     embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
     ctx.send(embed=embed)
 
+### Comando para borrar mensajes ###
+@bot.command(aliases=["CLEAR", "Clear"])
+@has_guild_permissions(manage_messages=True, read_message_history=True)
+async def clear(ctx, canal:nextcord.TextChannel, limit=None):
+    async with ctx.typing():
+        await asyncio.sleep(0.5)
+    await canal.purge(limit=int(limit))
+
+    embed=nextcord.Embed(title="CLEAR Command", description=f"Se borraron **{limit}** mensajes del canal: **{canal}** satisfactoriamente")
+    await ctx.send(embed=embed)
+
+
 ### RUN ###
-bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.XrAO5_4EUMOh3eKf9VfyXifxMtI')
+bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.YyWzyzCBm-1XaCVkLTBypK7VtxE')
