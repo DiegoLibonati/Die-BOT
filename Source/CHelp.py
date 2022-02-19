@@ -1,12 +1,16 @@
 import nextcord
 from nextcord.ext import commands
 
-Misc_Commands=["**!d ping** - This command allows the user know if Die-BOT is working.\n\
+General_Commands=["**!d ping** - This command allows the user know if Die-BOT is working.\n\
 **!d information** - This command allows the user know information about the server\n\
-**!d latency** - This command shows latency of Die-BOT"]
+**!d latency** - This command shows latency of Die-BOT\n\
+**!d about** - This command shows information about Die-BOT\n\
+**!d avatar** - This command shows the user avatar.\n\
+**!d userinfo** - This command shows information about the user"]
 
 Fun_Commands=["**!d eightball** - 8ball Command\n\
 **!d game1** - Rock, paper, scissors VS IA Command \n\
+**!d game2** - Guess the number\n\
 **!d movie** - This command allows the user to set up a movie to watch with friends"]
 
 Mod_Commands=["**!d move** - This command allows the mod to move users to another channel.\n\

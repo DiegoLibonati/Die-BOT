@@ -44,7 +44,7 @@ async def on_message(message):
         #await message.author.send(*CHelp.Comandos)
 
         embed=nextcord.Embed(title="HELP COMMAND :gear:", description="Hi, I´m Die-BOT. The help arrived", color=0xe74c3c, url="https://www.instagram.com/die_libonati/?hl=es-la")
-        embed.add_field(name="MISC COMMANDS", value=", ".join(CHelp.Misc_Commands), inline=False)
+        embed.add_field(name="GENERAL COMMANDS", value=", ".join(CHelp.General_Commands), inline=False)
         embed.add_field(name="FUN COMMANDS", value=", ".join(CHelp.Fun_Commands), inline=False)
         embed.add_field(name="MOD COMMANDS - [YOU NEED PERMISSION]", value=", ".join(CHelp.Mod_Commands), inline=False)
         embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
@@ -63,7 +63,7 @@ async def on_message(message):
         await bot.process_commands(message)
 
 
-### COMANDOS MISC ###
+### COMANDOS Generales ###
 ### Comando Ping ###
 @bot.command() # Decorador que permite crear un comando pero con una funcion
 async def ping(ctx):
@@ -110,6 +110,42 @@ async def latency(ctx, *args):
 
     await ctx.send(embed=embed)
 #await ctx.send(f"Mi PING de WebSocket es de: {round(bot.latency*1000)} MS\nMi PING de API es de: {round((fin-inicio)*1000)} MS")
+
+### Comando About ###
+@bot.command(aliases=["ABOUT", "About", "acerca", "Acerca"])
+async def about(ctx):
+    embed=nextcord.Embed(title="[Die-BOT] About this BOT :gear:", description="Hi, i´m Libonati Diego", color=0xe74c3c)
+    embed.add_field(name="Information", value="This bot was created by Libonati Diego. I am from Argentina and i used Python to build this BOT.\n\
+    If you need help, type **!d help** and help will arrive to your private messages. Soon you can donate to support this bot.\n\
+    **My instagram:** https://www.instagram.com/die_libonati\n\
+    **My GitHub:** https://github.com/DiegoLibonati")
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text=f"Command executed by: {ctx.author.display_name}")
+    embed.set_image(url="https://images.pagina12.com.ar/styles/focal_3_2_960x640/public/media/articles/22887/eghudclxuaeddx5.jpg?itok=veQ6beNk")
+    await ctx.send(embed=embed)
+
+### Comando Avatar ###
+@bot.command(aliases=["Avatar", "AVATAR"])
+async def avatar(ctx, user:nextcord.User):
+    embed=nextcord.Embed(title="[Die-BOT] AVATAR :gear:", color=0xe74c3c)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_image(url=user.avatar)
+    embed.set_footer(text=f"Command executed by: {ctx.author.display_name}")
+    await ctx.send(embed=embed)
+
+### Comando User-Info ###
+
+@bot.command(aliases=["Userinfo", "USERINFO"])
+async def userinfo(ctx, user:nextcord.User):
+
+    embed=nextcord.Embed(title="[Die-BOT] USER INFORMATION :gear:", color=0xe74c3c)
+    embed.add_field(name="User created at", value=user.created_at, inline=False)
+    embed.add_field(name="User name", value=user.name, inline=False)
+    embed.add_field(name="User ID", value=user.id, inline=False)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_image(url=user.avatar)
+    embed.set_footer(text=f"Command executed by: {ctx.author.display_name}")
+    await ctx.send(embed=embed)
 
 
 ### COMANDOS FUN ###
@@ -201,6 +237,35 @@ async def game1(ctx, usuario):
 
         
         await ctx.send(embed=resultado)
+
+### Comando adivina el numero ###
+@bot.command(aliases=["Game2", "GAME2"])
+async def game2(ctx, min_Num,max_Num, eleccion):
+
+    try:
+        num_Oculto_lista=[*range(int(min_Num),int(max_Num),1)]
+
+        num_Oculto=random.choice(num_Oculto_lista)
+
+        int2=int(eleccion)
+
+        if num_Oculto == int2:
+            await ctx.send("Congratulations, you guessed it")
+
+        elif int2 < int(min_Num) or int2 > int(max_Num):
+            await ctx.send("Your number selection is less than **num_Min** or greater than **num_Max**.")
+        
+        elif int2 != num_Oculto:
+
+            await ctx.send("You missed, best of luck next time.") 
+        
+        else:
+
+            await ctx.send("Unexpected ERROR :cry:")
+
+    except ValueError:
+        await ctx.send("You can only send integer number")
+
 
 
 ### Comando Peliculas ###
@@ -428,4 +493,4 @@ async def clear(ctx, canal:nextcord.TextChannel, limit=None):
 
 
 ### RUN ###
-bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.lgOR0TgVhrQxH5tvNXcCB_P0onI')
+bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.U5JPMzfLMjV1FTegQ1I1Rempolw')

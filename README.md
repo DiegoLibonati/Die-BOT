@@ -15,15 +15,19 @@ This is my PYTHON-BOT for Discord
 Prefix: !d
 
 <h1 align="left"> Commands [PYTHON] </h1>
-<h1><p>Misc Commands</p></h1>
+<h1><p>General Commands</p></h1>
 <p>!d ping</p>
 <p>!d information</p>
 <p>!d latency</p>
 <p>!d help</p>
+<p>!d about</p>
+<p>!d avatar</p>
+<p>!d userinfo</p>
 
 <h1><p>Fun Commands</p></h1>
 <p>!d eightball</p>
 <p>!d game1</p>
+<p>!d game2</p>
 <p>!d movie</p>
 
 <h1><p>MOD Commands</p></h1>
