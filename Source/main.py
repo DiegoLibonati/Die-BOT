@@ -210,11 +210,13 @@ async def movie(ctx, peli, horario, productor, actores):
         await asyncio.sleep(0.5)
 
     member=ctx.author
-    embed=nextcord.Embed(title="Pelicula del Dia", description="Cine Fulbito, presenta: {}".format(peli), color=0x00ff00)
-    embed.add_field(name="Horario de Inicio de la Pelicula: ", value=horario + "HS", inline=False)
+    embed=nextcord.Embed(title="Movie of the day", description="Cine Fulbito, presents: **{}**".format(peli), color=0x00ff00)
+    embed.add_field(name="Starting time of the movie: ", value=horario + "HS", inline=False)
     embed.add_field(name="Productor: ", value=productor, inline=True)
-    embed.add_field(name="Actores principales: ", value=actores, inline=True)
-    embed.set_footer(text="Informacion proporcionada por {}".format(member.display_name))
+    embed.add_field(name="Principals actors: ", value=actores, inline=True)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 
@@ -226,9 +228,12 @@ async def move(ctx, member:nextcord.Member, canal:VoiceChannel,*, reason=None):
     async with ctx.typing():
         await asyncio.sleep(0.5)
         await member.move_to(canal, reason=reason)
-        embed=nextcord.Embed(title="COMANDO MOVER", description="Este comando permite mover personas a otros canales, se necesita permisos", color=16705372)
-        embed.add_field(name=f"El usuario: {ctx.author.display_name}", value=f"Movio a **{member}**", inline=False)
-        embed.add_field(name=f"Al canal {canal}", value=f"Razon: **{reason}**", inline=False)
+        embed=nextcord.Embed(title="[Die-BOT] MOVE :man_mechanic:", description="This command allows the mod to move users to another channel", color=0x9b59b6)
+        embed.add_field(name=f"The user: {ctx.author.display_name}", value=f"move **{member}**", inline=False)
+        embed.add_field(name=f"to channel {canal}", value=f"Reason: **{reason}**", inline=False)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+        embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
         await ctx.send(embed=embed)
 # await ctx.send(f"El usuario **{member.display_name}** movio a **{member}** al canal **{canal}** cuya razon es: **{reason}**")
 
@@ -239,8 +244,10 @@ async def rol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, ato
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.add_roles(roles, reason=reason)
-    embed=nextcord.Embed(title="Comando AGREGAR ROL", description=f"Este comando sirve para dar ROLES, se necesitan permisos\n\n El usuario **{ctx.author.display_name}**, dio el rol: **{roles}** a **{member}**.\nRazon: **{reason}**", color=16705372)
-    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] ADD ROL :man_mechanic:", description=f"This command allows the mod to give role to the users.\n\n The user **{ctx.author.display_name}**, give: **{roles}** to **{member}**.\nReason: **{reason}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para sacar roles ###
@@ -250,8 +257,10 @@ async def drol(ctx, member:nextcord.Member, roles:nextcord.Role, reason=None, at
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.remove_roles(roles, reason=reason)
-    embed=nextcord.Embed(title="Comando SACAR ROL", description=f"Este comando sirve para sacar ROLES, se necesitan permisos\n\n El usuario **{ctx.author.display_name}**, le saco el rol: **{roles}** a **{member}**.\nRazon: **{reason}**", color=16705372)
-    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] REMOVE ROL :man_mechanic:", description=f"This command allows the mod to unrole the users.\n\n The user **{ctx.author.display_name}**, take out the role: **{roles}** to **{member}**.\nReason: **{reason}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para Mutear ###
@@ -261,8 +270,10 @@ async def silence(ctx, member:nextcord.Member, mute=False):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(mute=True)
-    embed=nextcord.Embed(title="Comando SILENCE", description=f"El usuario **{member}** fue silenciado por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutador por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] SILENCE :man_mechanic:", description=f"The user **{member}** was silence by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
     # await ctx.send(f"El usuario {member} fue silenciado por {ctx.author.display_name}")
 
@@ -273,8 +284,10 @@ async def desilence(ctx, member:nextcord.Member, mute=True):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(mute=False)
-    embed=nextcord.Embed(title="Comando DESILENCE", description=f"El usuario **{member}** fue dessilenciado por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutador por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] DESILENCE :man_mechanic:", description=f"The user **{member}** was unsilence by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
     #await ctx.send(f"El usuario {member} fue dessilenciado por {ctx.author.display_name}")
 
@@ -285,8 +298,10 @@ async def deafen(ctx, member:nextcord.Member, deafen=False):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(deafen=True)
-    embed=nextcord.Embed(title="Command DEAFEN", description=f"El usuario **{member}** fue ensordecido por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] DEAFEN :man_mechanic:", description=f"The user **{member}** was deafen by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para desendordeser ###
@@ -296,8 +311,10 @@ async def dedeafen(ctx, member:nextcord.Member, deafen=True):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(deafen=False)
-    embed=nextcord.Embed(title="Command DEDEAFEN", description=f"El usuario **{member}** ahora escucha gracias a: **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por: {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] DEDEAFEN :man_mechanic:", description=f"The user **{member}** now listen by: **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para ensordecer y silenciar ###
@@ -308,8 +325,10 @@ async def sdall(ctx, member:nextcord.Member, mute=False, deafen=False):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(mute=True, deafen=True)
-    embed=nextcord.Embed(title="Command SDALL", description=f"El usuario **{member}** fue silenciado y ensordecido por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] SDALL :man_mechanic:", description=f"The user **{member}** was silenced and muted by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para que escuchen y hablen ###
@@ -320,8 +339,10 @@ async def sdunall(ctx, member:nextcord.Member, mute=True, deafen=True):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(mute=False, deafen=False)
-    embed=nextcord.Embed(title="Command SDUNALL", description=f"El usuario **{member}** fue dessilenciado y tambien ahora escucha gracias a **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] SDUNALL :man_mechanic:", description=f"The user **{member}** now can talk and listen by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para desconectar ###
@@ -331,8 +352,10 @@ async def disconnect(ctx, member:nextcord.Member, voice_channel=None):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.edit(voice_channel=None)
-    embed=nextcord.Embed(title="Command DISCONNECT", description=f"El usuario {member}, fue desconectado por: {ctx.author.display_name}")
-    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] DISCONNECT :man_mechanic:", description=f"The user **{member}**, was disconnected by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
     
 ### Comando para banear ###
@@ -343,8 +366,10 @@ async def ban(ctx, member:nextcord.Member, delete_message_days=None, reason=None
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.ban(delete_message_days=delete_message_days, reason=reason)
-    embed=nextcord.Embed(title="BAN Command", description=f"El usuario **{member}** fue baneado por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por **{ctx.author.display_name}**")
+    embed=nextcord.Embed(title="[Die-BOT] BAN :man_mechanic:", description=f"The user **{member}** was banned by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para desbanear ###
@@ -355,8 +380,10 @@ async def unban(ctx, member:nextcord.Member, reason=None):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.ban(reason=reason)
-    embed=nextcord.Embed(title="UNBAN Command", description=f"El usuario **{member}** fue desbaneado por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por **{ctx.author.display_name}**")
+    embed=nextcord.Embed(title="[Die-BOT] UNBAN :man_mechanic:", description=f"The user **{member}** was unbanned by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para kickear ###
@@ -366,8 +393,10 @@ async def kick(ctx, member:nextcord.Member, reason=None):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.kick(reason=reason)
-    embed=nextcord.Embed(title="KICK Command", description=f"El usuario **{member}**, fue kickeado por **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejectuado por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] KICK :man_mechanic:", description=f"The user **{member}**, was kicked by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 ### Comando para tener Prioridad de habla ### 
@@ -377,8 +406,10 @@ async def ptospeak(ctx, member:nextcord.Member):
     async with ctx.typing():
         await asyncio.sleep(0.5)
     await member.request_to_speak()
-    embed=nextcord.Embed(title="REQUEST TO SPEAK Command", description=f"El usuario **{member}** ahora tiene PRIORIDAD PARA HABLAR gracias a **{ctx.author.display_name}**")
-    embed.set_footer(text=f"Comando ejecutado por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] REQUEST TO SPEAK :man_mechanic:", description=f"The user **{member}** now have request to speak by **{ctx.author.display_name}**", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     ctx.send(embed=embed)
 
 ### Comando para borrar mensajes ###
@@ -389,9 +420,12 @@ async def clear(ctx, canal:nextcord.TextChannel, limit=None):
         await asyncio.sleep(0.5)
     await canal.purge(limit=int(limit))
 
-    embed=nextcord.Embed(title="CLEAR Command", description=f"Se borraron **{limit}** mensajes del canal: **{canal}** satisfactoriamente")
+    embed=nextcord.Embed(title="[Die-BOT] CLEAR :man_mechanic:", description=f"**{limit}** messages were deleted from the cannel: **{canal}** successfully", color=0x9b59b6)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
 
 ### RUN ###
-bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.6mTjjxVlCDL8bKKZZRI4WDjV344')
+bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.lgOR0TgVhrQxH5tvNXcCB_P0onI')
