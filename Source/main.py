@@ -1,7 +1,7 @@
 import asyncio
 from turtle import color
 from unicodedata import name
-from discord import Permissions, VoiceChannel
+from discord import Colour, Permissions, VoiceChannel
 import nextcord
 from nextcord.ext import commands
 import time
@@ -9,10 +9,12 @@ from nextcord.ext.commands import has_guild_permissions, MissingPermissions
 import random 
 import CHelp
 
+intents=nextcord.Intents.default()
+intents.members= True
 
 
 ########## PREFIJO Y DESCRIPCION
-bot=commands.Bot(command_prefix='!d ', description="Bot creado por Diego Libonati")
+bot=commands.Bot(command_prefix='!d ', description="Bot created by Diego Libonati", intents=intents)
 
 ### Eventos ###
 
@@ -26,7 +28,7 @@ async def on_ready():
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, MissingPermissions):
-        embed=nextcord.Embed(title="ERROR :cry:", description="Lo lamento, usted no tiene permisos en este Servidor para ejecutar ese **COMANDO**")
+        embed=nextcord.Embed(title="ERROR :cry:", description="You dont have permission to use this **COMMAND**", color=0xe74c3c)
         await ctx.send(embed=embed)
         #await ctx.send("Usted no tiene Permiso para ejecutar este comando")
     else:
@@ -41,17 +43,19 @@ async def on_message(message):
     if msg=="!d help":
         #await message.author.send(*CHelp.Comandos)
 
-        embed=nextcord.Embed(title="HELP COMMAND", description="Hi, I´m Die-BOT. The help arrived")
+        embed=nextcord.Embed(title="HELP COMMAND :gear:", description="Hi, I´m Die-BOT. The help arrived", color=0xe74c3c, url="https://www.instagram.com/die_libonati/?hl=es-la")
         embed.add_field(name="MISC COMMANDS", value=", ".join(CHelp.Misc_Commands), inline=False)
         embed.add_field(name="FUN COMMANDS", value=", ".join(CHelp.Fun_Commands), inline=False)
-        embed.add_field(name="MOD COMMANDS - [SE NECESITAN PERMISOS]", value=", ".join(CHelp.Mod_Commands), inline=False)
+        embed.add_field(name="MOD COMMANDS - [YOU NEED PERMISSION]", value=", ".join(CHelp.Mod_Commands), inline=False)
+        embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+        embed.set_image(url="https://images.pagina12.com.ar/styles/focal_3_2_960x640/public/media/articles/22887/eghudclxuaeddx5.jpg?itok=veQ6beNk")
         await message.author.send(embed=embed)
 
-        embed3=nextcord.Embed(title="Contact", description="IMPORTANT INFORMATION")
+        embed3=nextcord.Embed(title="Contact :desktop:", description="**IMPORTANT INFORMATION**", color=0xe74c3c, url="https://www.instagram.com/die_libonati/?hl=es-la")
         embed3.add_field(name=". :flag_ar:", value=", ".join(CHelp.Contact), inline=False)
         await message.author.send(embed=embed3)
         
-        embed2=nextcord.Embed(title="HELP COMMAND", description=f"Hola **{message.author.display_name}**, te envie un mensaje privado!")
+        embed2=nextcord.Embed(title="[Die-BOT] HELP :boomerang:", description=f"Hi **{message.author.display_name}**, i have sent you a private message! :gear:", color=0xe74c3c)
         await message.channel.send(embed=embed2)
     
     else:
@@ -66,7 +70,7 @@ async def ping(ctx):
     async with ctx.typing():
         await asyncio.sleep(0.5)
 
-    await ctx.send('Estoy funcionado!')
+    await ctx.send('I am working :robot:!')
 
 ### Comando InformacionServer ###
 @bot.command(aliases=['info', "informacion", "Info", "Informacion", "Information"])
@@ -74,33 +78,35 @@ async def information(ctx):
     async with ctx.typing():
         await asyncio.sleep(0.5)
         member=ctx.author
-    embed=nextcord.Embed(title="Informacion del Server", url="https://www.instagram.com/fulbitofcf7/", description="Server OFICIAL de FULBITO FC perteneciente a DISCORD", color=255)
+    embed=nextcord.Embed(title="[Die-BOT] Server information :gear:", url="https://www.instagram.com/die_libonati/?hl=es-la", description="Fulbito FC official SERVER by Discord", color=0xe74c3c)
+    embed.add_field(name="Server created by ",value=f"{ctx.guild.owner}", inline=False)
+    embed.add_field(name="Server created date ", value=f"{ctx.guild.created_at}", inline=False)
+    embed.add_field(name="Server member count", value=f"{ctx.guild.member_count}", inline=False)
     embed.set_author(name=member.display_name, icon_url=member.avatar.url)
-    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/266396314_579112456839960_8990358209085441079_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=0debeb&_nc_ohc=-1XLNJuraqkAX9CgaRP&_nc_ht=scontent.faep27-1.fna&oh=00_AT_H1uS8VZ4lDhNDUQKHWDvAdXxb5UtoB6RbRSsYhau9aw&oe=61FEFB2A")
-    #embed.add_field(name="probando", value="probando", inline=False)
-    #embed.add_field(name="probando2", value="probando2", inline=True)
-    #embed.add_field(name="probando3", value="probando3", inline=True)
-    embed.set_footer(text="Informacion requerida por: {}".format(member.display_name))
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.set_image(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/266396314_579112456839960_8990358209085441079_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=0debeb&_nc_eui2=AeHeAU6xna0PC5ub_el7KLKk2V4RbXd6khrZXhFtd3qSGmAeypzo65PZkcti0aKTFhNWfwFpO8MYJfpnhdB0PgVv&_nc_ohc=dFedUnuLRkAAX9HO4ke&_nc_ht=scontent.faep27-1.fna&oh=00_AT_gcMS7zGrsc1nOdyipm3dM692pEFxCIepq84prRR0VNQ&oe=6214BBEA")
+    embed.set_footer(text="Command executed by: {}".format(member.display_name))
     await ctx.send(embed=embed)
 
 ### Comando Latencia ###
-@bot.command(aliases=["Latencia", "latencia", "Latency"])
+@bot.command(aliases=["Latencia", "latencia", "LATENCY", "Latency"])
 async def latency(ctx, *args):
     async with ctx.typing():
         await asyncio.sleep(0.5)
 
     inicio=time.time()
-    mensaje= await ctx.send("Obteniendo Ping")
-    await mensaje.edit(content="Obteniendo Ping.")
-    await mensaje.edit(content="Obteniendo Ping..")
-    await mensaje.edit(content="Obteniendo Ping...")
-    await mensaje.edit(content="¡PING OBTENIDO CON EXITO!")
+    mensaje= await ctx.send("Obtaining Ping")
+    await mensaje.edit(content="Obtaining Ping.")
+    await mensaje.edit(content="Obtaining Ping..")
+    await mensaje.edit(content="Obtaining Ping...")
+    await mensaje.edit(content="¡Successful achievement of Ping!")
     fin=time.time()
 
-    embed=nextcord.Embed(title="Comando LATENCIA", description="Este COMANDO obtiene la latencia actual del WebSocket y API de Die BOT", color=16705372)
-    embed.add_field(name="LATENCIA WEBSOCKET", value=f"{round(bot.latency*1000)} MS", inline=True)
-    embed.add_field(name="LATENCIA API", value=f"{round((fin-inicio)*100)} MS", inline=True)
-    embed.set_footer(text=f"Informacion requerida por {ctx.author.display_name}")
+    embed=nextcord.Embed(title="[Die-BOT] LATENCY :gear:", description="This COMMAND gets the actual latency from WebSocket and Die-BOT's API.", color=0xe74c3c)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+    embed.add_field(name="LATENCY WEBSOCKET", value=f"{round(bot.latency*1000)} MS", inline=True)
+    embed.add_field(name="LATENCY API", value=f"{round((fin-inicio)*100)} MS", inline=True)
+    embed.set_footer(text=f"Command executed by: {ctx.author.display_name}")
 
     await ctx.send(embed=embed)
 #await ctx.send(f"Mi PING de WebSocket es de: {round(bot.latency*1000)} MS\nMi PING de API es de: {round((fin-inicio)*1000)} MS")
@@ -114,7 +120,9 @@ async def eightball(ctx, *, pregunta):
     async with ctx.typing():
         await asyncio.sleep(0.5)
 
-    embed=nextcord.Embed(title="Comando 8 BALL", color=0x00ff00)
+    embed=nextcord.Embed(title="[Die-BOT] 8BALL :video_game:", color=0x00ff00)
+    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
 
     respuestas=["Que se yo rey.",
 			"Tu hermana por las dudas.",
@@ -125,64 +133,71 @@ async def eightball(ctx, *, pregunta):
 
     #hola=await ctx.send(f':8ball: La pregunta fue: {pregunta}\n:8ball: La respuesta es: {random.choice(respuestas)}')
 
-    embed.add_field(name="Pregunta y Respuesta", value=f':8ball: La pregunta fue: {pregunta}\n:8ball: La respuesta es: {random.choice(respuestas)}', inline=False)
+    embed.add_field(name="Question and Answer", value=f':8ball: The question was: {pregunta}\n:8ball: The answer is: {random.choice(respuestas)}', inline=False)
+    embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
 
-### Comando Piedra Papel o Tijera ###
-@bot.command(aliases=[])
+### Comando rock paper o scissors ###
+@bot.command(aliases=["GAME1", "Game1"])
 async def game1(ctx, usuario):
     async with ctx.typing():
         await asyncio.sleep(0.5)
 
-    lista=["piedra", "papel", "tijera"]
+    lista=["rock", "paper", "scissors"]
 
     if usuario not in lista:
-        embed=nextcord.Embed(title="ROCK, PAPER OR SCISSORS GAME", description="Comando que sirve para jugar a piedra, papel o tijera contra la computadora")
-        embed.add_field(name="ERROR :cry:", value="La palabra o caracteres que introdujo son incorrectos.\nSolo se permite: piedra, papel o tijera.\nIngrese el comando con su correcta expresion nuevamente.")
+        embed=nextcord.Embed(title="[Die-BOT] ROCK, PAPER OR SCISSORS GAME :video_game:", description="Rock, paper, scissors VS IA Command", color=0x00ff00)
+        embed.add_field(name="ERROR :cry:", value="The word or letter entered is incorrect.\nOnly allows: rock, paper, scissors.\nRe-enter the command with the correct word.")
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+        embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
         await ctx.send(embed=embed)
         #await ctx.send("La palabra o caracteres que introdujo son incorrectos")
-        #await ctx.send("Solo se permite: piedra, papel o tijera")
+        #await ctx.send("Solo se permite: rock, paper o scissors")
         #await ctx.send("Ingrese el comando con su correcta expresion nuevamente")
     else:
         IA=random.choice(lista)
 
-        resultado=nextcord.Embed(title="ROCK, PAPER OR SCISSORS GAME", description="Comando que sirve para jugar a piedra, papel o tijera contra la computadora")
-        resultado.add_field(name="ELECCIONES", value=f"Vos elegiste: **{usuario}**\nLa computadora eligio: **{IA}**", inline=False)
+        resultado=nextcord.Embed(title="[Die-BOT] ROCK, PAPER OR SCISSORS GAME :video_game:", description="Rock, paper, scissors VS IA Command", color=0x00ff00)
+        resultado.add_field(name="ELECTIONS", value=f"You choice: **{usuario}**\nThe IA choice: **{IA}**", inline=False)
+        resultado.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        resultado.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
+        resultado.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
 
         #await ctx.send(f"Vos elegiste: {usuario}\nLa computadora eligio: {IA}")
 
-        ### PAPEL
-        if IA=="papel" and usuario=="piedra":
-            #await ctx.send("La computadora gana")
-            resultado.add_field(name="RESULTADO FINAL", value="**La computadora GANA**", inline=False)
-        elif IA=="papel" and usuario=="tijera":
-            #await ctx.send("GANASTE")
-            resultado.add_field(name="RESULTADO FINAL", value="**GANASTE**",inline=False)
-        elif IA=="papel" and usuario=="papel":
-            #await ctx.send("Es un EMPATE")
-            resultado.add_field(name="RESULTADO FINAL", value="**Es un EMPATE**",inline=False)
+        ### paper
+        if IA=="paper" and usuario=="rock":
+            #await ctx.send("The IA WINS")
+            resultado.add_field(name="FINAL RESULT", value="**The IA WINS**", inline=False)
+        elif IA=="paper" and usuario=="scissors":
+            #await ctx.send("You WIN")
+            resultado.add_field(name="FINAL RESULT", value="**You WIN**",inline=False)
+        elif IA=="paper" and usuario=="paper":
+            #await ctx.send("It is a TIE")
+            resultado.add_field(name="FINAL RESULT", value="**It is a TIE**",inline=False)
 
-        ### TIJERA
-        if IA=="tijera" and usuario=="piedra":
-            #await ctx.send("GANASTE")
-            resultado.add_field(name="RESULTADO FINAL", value="**GANASTE**",inline=False)
-        elif IA=="tijera" and usuario=="tijera":
-            #await ctx.send("Es un EMPATE")
-            resultado.add_field(name="RESULTADO FINAL", value="**Es un EMPATE**",inline=False)
-        elif IA=="tijera" and usuario=="papel":
-            #await ctx.send("La computadora gana")
-            resultado.add_field(name="RESULTADO FINAL", value="**La computadora GANA**",inline=False)
+        ### scissors
+        if IA=="scissors" and usuario=="rock":
+            #await ctx.send("You WIN")
+            resultado.add_field(name="FINAL RESULT", value="**You WIN**",inline=False)
+        elif IA=="scissors" and usuario=="scissors":
+            #await ctx.send("It is a TIE")
+            resultado.add_field(name="FINAL RESULT", value="**It is a TIE**",inline=False)
+        elif IA=="scissors" and usuario=="paper":
+            #await ctx.send("The IA WINS")
+            resultado.add_field(name="FINAL RESULT", value="**The IA WINS**",inline=False)
 
-        ### PIEDRA
-        if IA=="piedra" and usuario=="piedra":
-            #await ctx.send("Es un EMPATE")
-            resultado.add_field(name="RESULTADO FINAL", value="**Es un EMPATE**",inline=False)
-        elif IA=="piedra" and usuario=="tijera":
-            #await ctx.send("La computadora gana")
-            resultado.add_field(name="RESULTADO FINAL", value="**La computadora GANA**",inline=False)
-        elif IA=="piedra" and usuario=="papel":
-            #await ctx.send("GANASTE")
-            resultado.add_field(name="RESULTADO FINAL", value="**GANASTE**",inline=False)
+        ### rock
+        if IA=="rock" and usuario=="rock":
+            #await ctx.send("It is a TIE")
+            resultado.add_field(name="FINAL RESULT", value="**It is a TIE**",inline=False)
+        elif IA=="rock" and usuario=="scissors":
+            #await ctx.send("The IA WINS")
+            resultado.add_field(name="FINAL RESULT", value="**The IA WINS**",inline=False)
+        elif IA=="rock" and usuario=="paper":
+            #await ctx.send("You WIN")
+            resultado.add_field(name="FINAL RESULT", value="**You WIN**",inline=False)
 
         
         await ctx.send(embed=resultado)
@@ -379,4 +394,4 @@ async def clear(ctx, canal:nextcord.TextChannel, limit=None):
 
 
 ### RUN ###
-bot.run('')
+bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.6mTjjxVlCDL8bKKZZRI4WDjV344')

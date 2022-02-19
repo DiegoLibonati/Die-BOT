@@ -1,30 +1,30 @@
 import nextcord
 from nextcord.ext import commands
 
-Misc_Commands=["!d ping - Este comando sirve para preguntar si Die-BOT anda\n\
-!d information - Este comando sirve para mostrar la informacion del server\n\
-!d latency - Este comando muestra la latencia de Die-BOT"]
+Misc_Commands=["**!d ping** - This command allows the user know if Die-BOT is working.\n\
+**!d information** - This command allows the user know information about the server\n\
+**!d latency** - This command shows latency of Die-BOT"]
 
-Fun_Commands=["!d eightball - Comando 8ball\n\
-!d game1 - Comando para jugar al piedra, papel o tijera vs la IA\n\
-!d movie - Comando para setear una pelicula a ver"]
+Fun_Commands=["**!d eightball** - 8ball Command\n\
+**!d game1** - Rock, paper, scissors VS IA Command \n\
+**!d movie** - This command allows the user to set up a movie to watch with friends"]
 
-Mod_Commands=["!d move - Comando para mover usuarios de un canal a otro canal\n\
-!d rol - Comando para dar un ROL\n\
-!d drol - Comando para sacar un ROL\n\
-!d silence - Comando para silenciar\n\
-!d desilence - Comando para sacar el silencio\n\
-!d deafen - Comando para que un usuario no escuche\n\
-!d dedeafen - Comando para que un usuario que no podia escuchar, ahora escuche\n\
-!d sdall - Comando para que un usuario no puedo hablar ni escuchar\n\
-!d sdunall - Comando para que un usuario ahora pueda hablar y escuchar, si antes no podia\n\
-!d disconnect - Comando para desconectar a un usuario de un canal\n\
-!d ban - Comando para banear a un usuario\n\
-!d unban - Comando para desbanear a un usuario\n\
-!d kick - Comando para kickear a un usuario\n\
-!d ptospeak - Comando para activar la prioridad de habla\n\
-!d clear - Comando para limpiar el chat de un canal de texto"]
+Mod_Commands=["**!d move** - This command allows the mod to move users to another channel.\n\
+**!d rol** - This command allows the mod to give role to the users.\n\
+**!d drol** - This command allows the mod to unrole the users.\n\
+**!d silence** - Mute command.\n\
+**!d desilence** - Command to remove silence.\n\
+**!d deafen** - Command to make a user not listen.\n\
+**!d dedeafen** - Command to make a user who could not listen, now listen.\n\
+**!d sdall** - Command to make a user unable to speak and unable to listen.\n\
+**!d sdunall** - Command to make a user now able to talk and listen, if previously unable to do so.\n\
+**!d disconnect** - Command to disconnect a user from a channel.\n\
+**!d ban** - Command to ban a user.\n\
+**!d unban** - Command to unban a user.\n\
+**!d kick** - Command to kick a user.\n\
+**!d ptospeak** - Command to enable speech priority.\n\
+**!d clear** - Command to clear the chat of a text channel."]
 
-Contact=["Instagram: https://www.instagram.com/die_libonati/?hl=es-la\n\
-GitHub:https://github.com/DiegoLibonati\n\
-Gmail: diego.libonati1998@gmail.com"]
+Contact=["**Instagram:** https://www.instagram.com/die_libonati/?hl=es-la\n\
+**GitHub:** https://github.com/DiegoLibonati\n\
+**Gmail:** diego.libonati1998@gmail.com"]
