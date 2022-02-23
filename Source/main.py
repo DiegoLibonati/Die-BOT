@@ -10,7 +10,6 @@ import random
 import CHelp
 
 
-
 intents=nextcord.Intents.default()
 intents.members= True
 
@@ -493,6 +492,7 @@ async def clear(ctx, canal:nextcord.TextChannel, limit=None):
     embed.set_thumbnail(url="https://scontent.faep27-1.fna.fbcdn.net/v/t39.30808-6/272969632_5390252007663516_955583038628786681_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_eui2=AeELecj1C0fnQYabp1MQUY_pHhRxlOGRhiYeFHGU4ZGGJsWxTWTjuWrUKmP3NQ3Rgjl41K9wDEDpo8JeRS-qUkRP&_nc_ohc=IwX3gRujH8cAX8zVbIy&_nc_ht=scontent.faep27-1.fna&oh=00_AT9Hm7_EFJDbycE2gAWpmPdUqRHPSgHG__WaSmwkU2RmZA&oe=6214D777")
     embed.set_footer(text="Command executed by: {}".format(ctx.author.display_name))
     await ctx.send(embed=embed)
+
 
 
 
