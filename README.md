@@ -47,15 +47,6 @@ Prefix: !d
 <p>!d ptospeak</p>
 <p>!d clear</p>
 
-<h1><p>MUSIC Commands [TEST]</p></h1>
-<p>!d join</p>
-<p>!d leave</p>
-<p>!d play</p>
-<p>!d pause</p>
-<p>!d resume</p>
-<p>!d stop</p>
-<p>!d queue</p>
-
 <br>
 <h2 align="left">
   Contact=

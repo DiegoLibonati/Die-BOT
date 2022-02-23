@@ -8,9 +8,7 @@ import time
 from nextcord.ext.commands import has_guild_permissions, MissingPermissions
 import random 
 import CHelp
-import nacl
-import NextcordUtils
-import os 
+
 
 
 intents=nextcord.Intents.default()
@@ -497,79 +495,10 @@ async def clear(ctx, canal:nextcord.TextChannel, limit=None):
     await ctx.send(embed=embed)
 
 
-### Musica ###
-
-@bot.command()
-async def join(ctx):
-    inchannel= ctx.author.voice
-    if inchannel is None:
-        return await ctx.send("You are not currently in a voice channel")
-
-    await ctx.author.voice.channel.connect()
-    await ctx.send("Joined your voice channel")
-
-@bot.command()
-async def leave(ctx):
-    inchannel=ctx.author.voice
-    ichannel=ctx.guild.me.voice
-    if inchannel is None:
-        return await ctx.send("You are not currently in a voice channel")
-    if ichannel is None:
-        return await ctx.send("I am not currently in a voice channel")
-    await ctx.voice_client.disconnect()
-    await ctx.send("Left your voice channel")
-
-m=NextcordUtils.Music()
-
-@bot.command()
-async def play(ctx, *, url):
-
-    inchannel=ctx.author.voice
-    ichannel=ctx.guild.me.voice
-    if inchannel is None:
-        return await ctx.send("You are not currently in a voice channel")
-    if ichannel is None:
-        return await ctx.send("I am not currently in a voice channel")
-
-    user=m.get_player(guild_id=ctx.guild.id)
-    if not user:
-        user=m.create_player(ctx, ffmpeg_error_betterfix=True)
-    if not ctx.voice_client.is_playing():
-        await user.queue(url, search=True)
-        sg=await user.play()
-        await ctx.send(f"I have started playing {sg.name}")
-    else:
-        sg= await user.queue(url, search=True)
-        await ctx.send(f"{sg.name} has been added to playlist")
-
-@bot.command()
-async def pause(ctx):
-    ctx.voice_client.pause()
-    await ctx.send("Music Pause")
-
-@bot.command()
-async def resume(ctx):
-    ctx.voice_client.resume()
-    await ctx.send("Music Resume")
-
-@bot.command()
-async def stop(ctx):
-
-    if ctx.voice_client and ctx.voice_client.is_playing():
-        ctx.voice_client.stop()
-        await ctx.send("Music Stopped")
-    else:
-        await ctx.send("No music playing failed to stop")
-
-@bot.command()
-async def queue(ctx):
-    user=m.get_player(guild_id=ctx.guild.id)
-    await ctx.send(f"\n{','.join([song.name for song in user.current_queue()])}")
-
 
 
 
 
 
 ### RUN ###
-bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.xPPE9iit_LAmr_7Ck2lgP0QaXfg')
+bot.run('OTM4MjA5MjMzMDAwODgyMTg2.Yfm9cA.eG0ZpaigSx9r6PvELcwat43EvdU')
