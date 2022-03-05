@@ -23,6 +23,7 @@ Prefix: !d
 <p>!d about</p>
 <p>!d avatar</p>
 <p>!d userinfo</p>
+<p>!d addbot</p>
 
 <h1><p>Fun Commands</p></h1>
 <p>!d eightball</p>
@@ -45,7 +46,28 @@ Prefix: !d
 <p>!d unban</p>
 <p>!d kick</p>
 <p>!d ptospeak</p>
+<p>!d purge</p>
+
+<h1><p>MUSIC Commands</p></h1>
+<p>!d connect</p>
+<p>!d leave</p>
+<p>!d reset</p>
+<p>!d changechannel</p>
+<p>!d play</p>
+<p>!d playlist</p>
+<p>!d loop</p>
+<p>!d shuffle</p>
+<p>!d pause</p>
+<p>!d queue</p>
+<p>!d stop</p>
+<p>!d movesong</p>
+<p>!d skip</p>
 <p>!d clear</p>
+<p>!d prev</p>
+<p>!d resume</p>
+<p>!d songinfo</p>
+<p>!d history</p>
+<p>!d volume</p>
 
 <br>
 <h2 align="left">
