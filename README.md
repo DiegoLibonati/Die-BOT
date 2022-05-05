@@ -8,9 +8,10 @@
 <img align="center" alt="cat coding" src="https://github.com/DiegoLibonati/DiegoLibonati/blob/main/template/cat.gif" width="200" />
  </h3>
 
-# MORE INFO IN: <h2>https://diegolibonati.github.io/DiegoLibonatiWeb/</h2>
+# MY PERSONAL WEB || PORTFOLIO 
+<h1>https://diegolibonati.github.io/DiegoLibonatiWeb/</h1>
 
-# Die-BOT [Discord]-[Python]
+# DIE-BOT [Discord]-[Python]
 
 This is my PYTHON-BOT for Discord
 
@@ -73,7 +74,7 @@ Prefix: !d
 
 <br>
 <h2 align="left">
-  Contact=
+  CONTACT
 </h2>
 <br/>
 
